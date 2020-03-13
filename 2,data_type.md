@@ -153,3 +153,18 @@ check if a numeric values is finite or infinite: `is_finite(); is_infinite`
  The special resource type is not an actual data type. It is the storing of a  reference to functions and resources external to PHP. 
 
  A common example of  using the resource data type is a database call. 
+
+### Iterables
+
+Iterable is a pseudo-type introduced in PHP 7.1. It accepts any array or object implementing the Traversable interface. Both of these types are iterable using foreach and can be used with yield from within a generator. 
+
+```php
+<?php
+
+    function foo(iterable $iterable) {
+    	foreach ($iterable as $value) {
+            //
+        }
+	}
+```
+
