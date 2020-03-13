@@ -63,6 +63,12 @@
 
 Check if the type of a variable is integer: `is_int(); is_integer(); is_long()`
 
+php int max: `echo PHP_INT_MAX;`
+
+php int size: `echo PHP_INT_SIZE;`
+
+convert functions: `binoct(); octbin(); decbin(); hexbin();`
+
 ### 3, PHP Floats
 
  A float is a number with a decimal point or a number in exponential form. 
@@ -76,3 +82,74 @@ Check if the type of a variable is integer: `is_int(); is_integer(); is_long()`
 $x = 1.9e310
 
 check if a numeric values is finite or infinite: `is_finite(); is_infinite`
+
+**PHP NaN:** NaN stands for Not a Number. NaN is used for impossible mathematical operations. 
+
+`is_numeric()`:  used to find whether a variable is  numeric. 
+
+ convert a value  to an integer : `(int); (integer); intval()`
+
+### 4, PHP Boolean
+
+ A Boolean represents two possible states: TRUE or FALSE. `$x = true; $y = false;`
+
+### 5, PHP Array
+
+ An array stores multiple values in one single variable.  There are three method creating an array:
+
+```php
+<?php
+    $arr0 = array(1, 2, 3);
+
+	$arr1[] = 1;
+	$arr1[] = 2;
+	$arr1[] = 3;
+
+	$arr2 = [1, 2, 3];		// recommend
+	
+	var_dump($arr0, $arr1, $arr2);
+?>	
+```
+
+### 6, PHP Object
+
+ An object is a data type which stores data and information on how to process that data. 
+
+ First we must declare a class of object. For this, we use the `class` keyword.  A class is a structure that can contain properties and methods:
+
+```php
+<?php
+    class Car
+	{
+		public $brand = 'BMW';
+    	
+    	public function showBrand()
+        {
+            return $this->brand;
+        }
+	}
+
+	// create an object
+	$car = new Car();
+
+	// get properties
+	echo $car->brand;
+
+	// call functions
+    echo $car->showBrand();
+?>
+```
+
+### 7, PHP NULL Value
+
+ Null is a special data type which can have only one value: NULL. 
+
+ If a variable is created without a value, it is  automatically assigned a value of NULL. 
+
+ Variables can also be emptied by setting the value to NULL.
+
+### 8, PHP Resource
+
+ The special resource type is not an actual data type. It is the storing of a  reference to functions and resources external to PHP. 
+
+ A common example of  using the resource data type is a database call. 
