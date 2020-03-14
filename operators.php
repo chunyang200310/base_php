@@ -63,3 +63,11 @@ var_dump($tog, $tog1);
 $a = 1 > 1 ? 'hello' : 'world';
 $b = null ?? 'good';
 var_dump($a, $b);
+
+// type Operators: instanceof
+class MyClass
+{
+}
+
+$a = new MyClass();
+var_dump($a instanceof MyClass);
