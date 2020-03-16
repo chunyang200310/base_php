@@ -274,6 +274,83 @@ The *switch* statement is similar to a series of  IF statements on the same expr
 ```php
 <?php
     $i = mt_rand(0, 2);
-	
+    switch ($i) {
+        case 0:
+            echo "i equals 0";
+            break;
+        case 1:
+            echo "i equals 1";
+            break;
+        case 2:
+            echo "i equals 2";
+            break;
+    }
+?>
+```
+
+### declare
+
+The declare construct is used to set execution directives for a block of code. The syntax of declare is similar to the syntax of other flow control constructs: `declare (directive) statement`
+
+### return
+
+return returns program control to the calling module. Execution resumes at the expression following the called module's invocation. 
+
+If called from within a function, the return statement immediately ends execution of the current function, and returns its argument as the value of the function call. 
+
+If called from the global scope, then execution of the current script file is ended. If the current script file was included or required, then control is passed back to the calling file.
+
+```php
+<?php
+    // example config file:
+	return [
+    	'site' =>123,
+    	'usr' => 'root'
+	];
+
+	// return in function
+	function sum($a, $b) {
+        return $a + $b;
+    }
+
+	// return in global scope
+	return;
+```
+
+### require / require_once
+
+require is identical to include except upon failure it will also produce a fatal E_COMPILE_ERROR level error. In other words, it will halt the script whereas include only emits a warning (E_WARNING) which allows the script to continue. 
+
+The require_once statement is identical to require except PHP will check if the file has already been included, and if so, not include (require) it again. 
+
+### include / include_once
+
+The include statement includes and evaluates the specified file. 
+
+The include_once statement includes and evaluates the specified file during the execution of the script. 
+
+include_once may be used in cases where the same file might be included and evaluated more than once during a particular execution of a script, so in this case it may help avoid problems such as function redefinitions, variable value reassignments, etc. 
+
+### goto
+
+The goto operator can be used to jump to another section in the program. The target point is specified by a label followed by a colon, and the instruction is given as goto followed by the desired target label.
+
+```php
+<?php
+    goto a;
+	echo 'Foo';
+
+	a:
+	echo 'Bar';
+
+	// goto loop example
+    for($i=0,$j=50; $i<100; $i++) {
+      while($j--) {
+        if($j==17) goto end; 
+      }  
+    }
+    echo "i = $i";
+    end:
+    echo 'j hit 17';
 ```
 
