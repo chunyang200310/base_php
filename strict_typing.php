@@ -80,3 +80,55 @@ $sum = func_as_arg(1, 2, function ($a, $b) {
 	return $a + $b;
 });
 echo 'Sum is: ' . $sum . '<br />';
+
+/******	Returning values	******/
+// use of return
+function square($num)
+{
+	return $num * $num;
+}
+
+echo '4 x 4 = ' . square(4) . '<br />';
+
+// returning an array to get multiple values
+function small_numbers()
+{
+	return [0, 1, 2];
+}
+list ($zero, $one, $two) = small_numbers();
+echo $zero, $one, $two . '<br />';
+
+// Returning a reference from a function
+function &returns_reference()
+{
+	return $someref;
+}
+$newref =& returns_reference();
+
+/****** Return tyoe declarations  ******/
+// Basic reurn type declaration
+function sum_type($a, $b): float
+{
+	return $a + $b;
+}
+var_dump(sum_type(1, 2));	// float 3
+
+// strict mode in action
+function sum_strict($a, $b): int
+{
+	return $a + $b;
+}
+var_dump(sum_strict(1, 2));
+try {
+	var_dump(sum_strict(1, 2.5));
+} catch (TypeError $e) {
+	echo $e->getMessage();
+}
+
+// Returning an object
+class C {}
+function getC(): C
+{
+	return new C;
+}
+var_dump(getC());

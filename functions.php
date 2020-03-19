@@ -171,3 +171,12 @@ var_dump(sum(1.5, 2.5));
 // strict typing
 // declare(strict_types=1);	// Fatal error: strict_types declaration must be the very first statement in the script
 /******	strict typing look: strict_typeing.php	******/
+
+// Return type declarations in weak mode
+function weak_sum($a, $b): int
+{
+	return $a + $b;
+}
+
+var_dump(weak_sum(1, 2));	// int 3
+var_dump(weak_sum(1, 2.5));	// int 3

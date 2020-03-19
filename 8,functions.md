@@ -309,3 +309,76 @@ $sum = func_as_arg(1, 2, function ($a, $b) {
 echo 'Sum is: ' . $sum . '<br />';
 ```
 
+### 3, Returning values
+
+Values are returned by using the optional return statement. Any type may be returned, including arrays and objects. This causes the function to end its execution immediately and pass control back to the line from which it was called. 
+
+If the return is omitted the value NULL will be returned.
+
+```php
+<?php
+    // use of return
+    function square($num)
+    {
+        return $num * $num;
+    }
+    echo square(4);	// 16
+```
+
+A function can not return multiple values, but similar results can be obtained by returning an array. 
+
+```php
+<?php
+    // Returning an array to get multiple values
+    function small_numbers()
+	{
+    	return [0, 1, 2];
+	}
+	list ($zero, $one, $two) = small_numbers();
+```
+
+To return a reference from a function, use the reference operator & in both the function declaration and when assigning the returned value to a variable:
+
+```php
+function &returns_reference()
+{
+    return $someref;
+}
+$newref =& returns_reference();
+```
+
+**Return type declarations**:
+
+PHP 7 adds support for return type declarations. Similarly to argument type declarations, return type declarations specify the type of the value that will be returned from a function. The same types are available for return type declarations as are available for argument type declaration
+
+Strict typing also has an effect on return type declarations. In the default weak mode, returned values will be coerced to the correct type if they are not already of that type. In strong mode, the returned value must be of the correct type, otherwise a TypeError will be thrown. 
+
+As of PHP 7.1.0, return values can be marked as nullable by prefixing the type name with a question mark (?). This signifies that the function returns either the specified type or NULL
+
+When overriding a parent method, the child's method must match any return type declaration on the parent. If the parent doesn't define a return type, then the child method may do so.
+
+```php
+<?php
+    // Basic return type declaration
+    function sum($a, $b): float
+    {
+        return $a + $b;
+    }
+	var_dump(sum(1 + 2)); // return float, even two int given
+
+	// strict mode in action
+    declare(strict_types=1);
+    function sum($a, $b): int {
+        return $a + $b;
+    }
+    var_dump(sum(1, 2));
+    var_dump(sum(1, 2.5)); // Fatal error: Uncaught TypeError: Return value of sum() must be of the type integer, float returned in
+
+	// Returning an object
+    class C {}
+    function getC(): C {
+        return new C;
+    }
+    var_dump(getC());
+```
+
