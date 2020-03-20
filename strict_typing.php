@@ -132,3 +132,71 @@ function getC(): C
 	return new C;
 }
 var_dump(getC());
+
+/******  Variable functions  ******/
+// variable function example
+function var_func()
+{
+	echo 'call function: var_func <br />';
+}
+
+$str = 'var_func';
+$str();
+
+// call Object method with the variable functions
+class CallVar
+{
+	public function variable()
+	{
+		$name = 'bar';
+		//$name = 'Bar';	// method name case insensitive
+		$this->$name();	// call the bar() method
+	}
+
+	public function bar()
+	{
+		echo 'This is bar <br />';
+	}
+}
+
+$cv = new CallVar();
+$funcName = 'variable';
+$cv->$funcName();
+
+// When calling static methods, the function call is stronger 
+// than the static property operator
+class FooStatic
+{
+	public static $variable = 'static property';
+
+	public static function variable()
+	{
+		echo 'Method variable called. <br />';
+	}
+}
+
+echo FooStatic::$variable . '<br />';
+FooStatic::variable() . '<br />';
+$variable = 'variable';
+FooStatic::$variable();
+
+// Complex callables
+class ComplexCall
+{
+	public static function bar()
+	{
+		echo 'bar <br />';
+	}
+
+	public function baz()
+	{
+		echo 'baz <br />';
+	}
+}
+
+$func = ['ComplexCall', 'bar'];
+$func();
+$func = [new ComplexCall, 'baz'];
+$func();
+$func = 'ComplexCall::bar';
+$func();

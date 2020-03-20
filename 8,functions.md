@@ -382,3 +382,77 @@ When overriding a parent method, the child's method must match any return type d
     var_dump(getC());
 ```
 
+### 4, Variable functions
+
+PHP supports the concept of variable functions. This means that if a variable name has parentheses appended to it, PHP will look for a function with the same name as whatever the variable evaluates to, and will attempt to execute it. Among other things, this can be used to implement callbacks, function tables, and so forth. 
+
+```php
+<?php
+// variable function example
+function var_func()
+{
+    echo 'call function: var_func <br />';
+}
+
+$str = 'var_func';
+$str();
+
+// call Object method with the variable functions
+class CallVar
+{
+    public function variable()
+    {
+        $name = 'bar';
+        //$name = 'Bar';    // method name case insensitive
+        $this->$name(); // call the bar() method
+    }
+
+    public function bar()
+    {
+        echo 'This is bar <br />';
+    }
+}
+
+$cv = new CallVar();
+$funcName = 'variable';
+$cv->$funcName();
+
+// When calling static methods, the function call is stronger 
+// than the static property operator
+class FooStatic
+{
+    public static $variable = 'static property';
+
+    public static function variable()
+    {
+        echo 'Method variable called. <br />';
+    }
+}
+
+echo FooStatic::$variable . '<br />';
+FooStatic::variable() . '<br />';
+$variable = 'variable';
+FooStatic::$variable();
+
+// Complex callables
+class ComplexCall
+{
+    public static function bar()
+    {
+        echo 'bar <br />';
+    }
+
+    public function baz()
+    {
+        echo 'baz <br />';
+    }
+}
+
+$func = ['ComplexCall', 'bar'];
+$func();
+$func = [new ComplexCall, 'baz'];
+$func();
+$func = 'ComplexCall::bar';
+$func();
+```
+
