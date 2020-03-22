@@ -456,3 +456,128 @@ $func = 'ComplexCall::bar';
 $func();
 ```
 
+### 5, Internal (built-in) functions
+
+PHP comes standard with many functions and constructs. There are also functions that require specific PHP extensions compiled in, otherwise fatal "undefined function" errors will appear. 
+
+It's important to realize what a function returns or if a function works directly on a passed in value.
+
+### 6, Anonymous functions
+
+Anonymous functions, also known as closures, allow the creation of functions which have no specified name. They are most useful as the value of callback parameters, but they have many other uses. 
+
+```php
+<?php
+    // anonymous function example
+    echo preg_replace_callback('~-([a-z])~', function ($match) {
+        return strtoupper($match[1]);
+    }, 'hello-world');
+	// outputs helloWorld
+```
+
+Closures can also be used as the values of variables; PHP automatically converts such expressions into instances of the Closure internal class. Assigning a closure to a variable uses the same syntax as any other assignment, including the trailing semicolon: 
+
+```php
+<?php
+	//Anonymous function variable assignment example
+    $greet = function ($name)
+    {
+        echo '<br /> Hello ' . $name . '<br />';
+    };  // semicolon cannot be omited!
+    $greet('World');
+    $greet('PHP');
+
+```
+
+Closures may also inherit variables from the parent scope. Any such variables must be passed to the use language construct. From PHP 7.1, these variables must not include superglobals, $this, or variables with the same name as a parameter. 
+
+```php
+<?php
+// Inheriting variables from the parent scope 
+$message = 'hello';
+
+$example = function ()
+{
+    var_dump($message);
+};
+$example();     // null
+
+$example = function () use ($message)
+{
+    var_dump($message);
+};
+$example();
+
+$message = 'world';
+var_dump($message);
+$example();
+
+// reset message
+$message = 'hello';
+
+$example = function () use (&$message)
+{
+    var_dump($message);
+};
+$example();
+
+$message = 'world';
+$example();
+
+// Closures can also accept regular arguments
+$example = function ($arg) use ($message) {
+    var_dump($arg . ' ' . $message);
+};
+$example('hello');
+```
+
+Inheriting variables from the parent scope is not the same as using global variables. Global variables exist in the global scope, which is the same no matter what function is executing. The parent scope of a closure is the function in which the closure was declared (not necessarily the function it was called from). 
+
+Automatic binding of $this:
+
+```php
+<?php
+class Test
+{
+    public function testing()
+    {
+        return function() {
+            var_dump($this);
+        };
+    }
+}   
+
+$obj = new Test;
+$function = $obj->testing();
+$function();
+```
+
+**Static anonymous functions**
+
+As of PHP 5.4, anonymous functions may be declared statically. This prevents them from having the current class automatically bound to them. Objects may also not be bound to them at runtime. 
+
+```php
+<?php
+// Attempting to use $this inside a Static anonymous functions
+// Attempting to use $this inside a Static anonymous functions
+class UseThis
+{
+    function __construct()
+    {
+        $func = static function() {
+            // var_dump($this);
+            // Fatal error: Uncaught Error: Using $this when not in object context
+        };  
+        $func();
+    }   
+}
+new UseThis();
+
+// Attempting to bind an object to a static anonymous function
+$func = static function() {
+    // function body
+};
+$func = $func->bindTo(new StdClass); // Warning: Cannot bind an instance to a static closure
+$func();    // Fatal error: Uncaught Error: Function name must be a string
+```
+

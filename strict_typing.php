@@ -200,3 +200,91 @@ $func = [new ComplexCall, 'baz'];
 $func();
 $func = 'ComplexCall::bar';
 $func();
+
+/******  Internal (built-in) functions  ******/
+// example 1
+echo preg_replace_callback('~-([a-z])~', function ($match) {
+	// var_dump($match);
+	return strtoupper($match[1]);
+}, 'hello-world');
+
+// Anonymous function variable assignment example
+$greet = function ($name)
+{
+	echo '<br /> Hello ' . $name . '<br />';
+};	// semicolon cannot be omited!
+$greet('World');
+$greet('PHP');
+
+// Inheriting variables from the parent scope 
+$message = 'hello';
+
+$example = function ()
+{
+	var_dump($message);
+};
+$example();		// null
+
+$example = function () use ($message)
+{
+	var_dump($message);
+};
+$example();
+
+$message = 'world';
+var_dump($message);
+$example();
+
+// reset message
+$message = 'hello';
+
+$example = function () use (&$message)
+{
+	var_dump($message);
+};
+$example();
+
+$message = 'world';
+$example();
+
+// Closures can also accept regular arguments
+$example = function ($arg) use ($message) {
+	var_dump($arg . ' ' . $message);
+};
+$example('hello');
+
+// Automatic binding of $this 
+class Test
+{
+	public function testing()
+	{
+		return function() {
+			var_dump($this);
+		};
+	}
+}
+
+$obj = new Test;
+$function = $obj->testing();
+$function();
+
+// Attempting to use $this inside a Static anonymous functions
+class UseThis
+{
+	function __construct()
+	{
+		$func = static function() {
+			// var_dump($this);
+			// Fatal error: Uncaught Error: Using $this when not in object context
+		};
+		$func();
+	}
+}
+new UseThis();
+
+// Attempting to bind an object to a static anonymous function
+$func = static function() {
+	// function body
+};
+$func = $func->bindTo(new StdClass); // Warning: Cannot bind an instance to a static closure
+$func();	// Fatal error: Uncaught Error: Function name must be a string
