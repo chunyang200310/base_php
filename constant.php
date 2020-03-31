@@ -1,5 +1,7 @@
 ﻿<?php
-echo '<pre>';
+error_reporting(E_ALL);
+
+echo '<body bgcolor="mintcream"> <pre>';
 
 // create constans with: define(key, value);
 define('PI', 3.14);
