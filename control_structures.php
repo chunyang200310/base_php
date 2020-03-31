@@ -1,9 +1,12 @@
 <?php
-error_reporting(7);
+error_reporting(E_ALL);
 
 echo '<body bgcolor="mintcream"><pre>';
 
 // if / elseif / else
+$a = mt_rand(0, 5);
+$b = mt_rand(0, 5);
+
 if ($a > $b) {
 	echo 'a is bigger than b';
 } elseif ($a == $b) {

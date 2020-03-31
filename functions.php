@@ -1,5 +1,5 @@
 <?php
-error_reporting(7);
+error_reporting(E_ALL);
 
 echo '<body bgcolor="mintcream"><pre>';
 
