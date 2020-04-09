@@ -287,4 +287,11 @@ $func = static function() {
 	// function body
 };
 $func = $func->bindTo(new StdClass); // Warning: Cannot bind an instance to a static closure
-$func();	// Fatal error: Uncaught Error: Function name must be a string
+
+//$func();	// Fatal error: Uncaught Error: Function name must be a string
+
+try {
+	$func();
+} catch (Error $e) {
+	echo 'Error details: ' . $e->getMessage();
+}
