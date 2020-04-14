@@ -129,6 +129,11 @@ function f(C $c)
 f(new C);
 f(new D);
 // f(new E);	// Fatal error: Uncaught TypeError: Argument 1 passed to f() must be an instance of C, instance of E given
+try {
+	f(new E);
+} catch (TypeError $e) {
+	echo 'f(new E): TypeError: ' . $e->getMessage() . '<br />';
+}
 
 // Basic interface type declaration
 interface I { public function f(); }

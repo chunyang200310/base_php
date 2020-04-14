@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Category List</title>
+	</head>
+	<body bgcolor="mintcream">
+		<table border="1px" bordercolor="gray" cellspacing="0px">
+			<caption><h3>Category List</h3></caption>
+			<tr>
+				<th>Goods Id</th>
+				<th>Goods Name</th>
+				<th>Shop Price</th>
+				<th>Market Proce</th>
+			</tr>
+			<{foreach $cat_list as $k=>$v}>
+			<tr>
+				<td><{$v['goods_id']}></td>
+				<td><{$v['goods_name']}></td>
+				<td><{$v['shop_price']}></td>
+				<td><{$v['market_price']}></td>
+			</tr>
+			<{/foreach}>
+		</table>
+	</body>
+</html>

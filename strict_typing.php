@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-error_reporting(7);
+error_reporting(E_ALL);
 
 function sum(int $a, int $b)
 {
@@ -19,7 +19,7 @@ try {
 	var_dump(sum(1.5, 2.5));
 } catch (TypeError $e) {
 	// var_dump($e);
-	echo 'Error: ' . $e->getMessage();
+	echo 'TypeError: ' . $e->getMessage();
 }
 
 echo '<br /> Hello <br />';
@@ -41,7 +41,9 @@ function add($a, $b)
 {
 	return $a + $b;
 }
+
 echo add(...[1, 2]) . '<br />';
+
 $a = [1, 2];
 echo add(...$a) . '<br />';
 
@@ -122,7 +124,7 @@ var_dump(sum_strict(1, 2));
 try {
 	var_dump(sum_strict(1, 2.5));
 } catch (TypeError $e) {
-	echo $e->getMessage();
+	echo 'TypeError: ' . $e->getMessage() . '<br />';
 }
 
 // Returning an object
