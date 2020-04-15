@@ -8,7 +8,7 @@ return [
 	// database
 	'host'				=>	'127.0.0.1',
 	'user'				=>	'root',
-	'pass'				=>	'vxvd828q',
+	'pass'				=>	'mydb666',
 	'dbname'			=>	'php_7',
 	'port'				=>	'3306',
 	'charset'			=>	'utf8',
